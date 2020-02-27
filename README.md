@@ -120,3 +120,5 @@ print("Percentage of all requests that were redirects (3xx): {0:.2%}".format(red
 print("Total number of Errors:",errorCounter)
 print("Percentage of client error (4xx) requests: {0:.2%}".format(errorCounter/totalResponses))	
 fileCount()
+
+#end of assignment
