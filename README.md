@@ -36,3 +36,8 @@ jullogs=open("july.txt", "a+"); auglogs=open("august.txt", "a+"); seplogs=open("
 octlogs=open("octlogs.txt", "a+"); novlogs=open("november.txt", "a+"); declogs=open("december.txt", "a+")   
 
 i=0
+
+
+
+
+
