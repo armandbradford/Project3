@@ -1,5 +1,5 @@
 # Project3
-Repo for project3
+# Repo for project3
 # This was made by Tristan Zoeller and Armand Bradford.
 
 from urllib.request import urlretrieve
@@ -7,14 +7,14 @@ import os
 import re
 import collections 
 
-#This goes and gets the file we need for the assignment.
 redirectCounter = 0
 errorCounter = 0
+# URL of the file
 URL = 'https://s3.amazonaws.com/tcmg476/http_access_log'
-#This is where our file will be saved and what it will be called so we can find it later if needed.
+# Where to save our log file and what its called
 LOCAL_FILE = 'local_copy.log'
 
-#These are the months that we will be using to parse the data
+# This assigns a value to each month
 months_count ={
   "Jan": 0,
   "Feb": 0,
@@ -37,6 +37,13 @@ octlogs=open("octlogs.txt", "a+"); novlogs=open("november.txt", "a+"); declogs=o
 
 i=0
 
+def file_len(LOCAL_FILE):
+    with open (LOCAL_FILE) as f:
+        for i, l in enumerate (f):
+            pass
+    return i + 1
+
+# find all files that are inbetween GET requests and HTTP protocols"
 
 def fileCount():
 	filelog = []
@@ -44,39 +51,55 @@ def fileCount():
 	with open(LOCAL_FILE) as logs:
 		for line in logs:
 			try:
-				filelog.append(line[line.index("GET")+4:line.index("HTTP")])	
+				filelog.append(line[line.index("GET")+4:line.index("HTTP")])		
 			except:
 				pass
 	counter = collections.Counter(filelog)
+  #checking for file requests that only occur once because they may be the ones that get the least amount of requests
 	for count in counter.most_common(1):														
-		print("The most requested file was: {} with {} requests.".format(str(count[0]), str(count[1])))
-	for count in counter.most_common():					#Files w/ only one request
+		print("Most commonly requested file: {} with {} requests.".format(str(count[0]), str(count[1])))
+	for count in counter.most_common():					
 		if str(count[1]) == '1':
-			leastcommon.append(count[0]), 
-	if leastcommon:
-    print(file)
-  
-  #Multiple files with only one request so we need to list them all
-		#response = input(" There were {} file(s) that were requested only once, show all? 
-		#(y/n)".format(len(leastcommon)))
-		#if response == 'y' or response == 'Y':
-			#for file in leastcommon:
-				#print(file)
+			leastcommon.append(count[0])
+	if leastcommon:	
+    #there are a lot of files that only happen once in the entire file								 													
+		response = input("It seem's there are {} file(s) that were requested only once, show all? (y/n)".format(len(leastcommon)))
+		if response == 'y' or response == 'Y':
+			for file in leastcommon:
+				print(file)
 # If the file isn't already there
-#if not os.path.isfile(LOCAL_FILE):
-    # Download the file and save it to LOCAL_FILE
-    #urlretrieve(URL, LOCAL_FILE)
-    
-   #Matching patterns to lines
-   match.group(0)
+if not os.path.isfile(LOCAL_FILE):
+# Download the file and save it to local_file
+    urlretrieve(URL, LOCAL_FILE)
+
+
+# Our regex that we are using 
+pattern = r'(.*?) - (.*) \[(.*?)\] \"(.*?) (.*?)\"? (.+?) (.+) (.+)'
+
+# Create a list with each line from the file
+lines = open(LOCAL_FILE, 'r').readlines()
+
+# This is the most important part of our code. It goes through and finds all the matches that we are looking for.
+for line in lines:
+    # Match the patterns to the lines so we can answer the questions in the assignment
+    match = re.match(pattern, line)
+
+    # This is for if there is no match
+    if not match:
+        continue
+
+    # You can get all the info you need from the match groups we created a second ago
+    # original line
+    match.group(0) 
+    # timestamp
     match.group(3) 
     timestamp = match.group(3)
     month = timestamp[3:6]
     months_count[month] += 1
     match.group(7) 
-    
- #This is what actually does all the work and find the matches in the file such as requests each month or most requested form.
-   if (match.group(7)[0] == "3"):
+    # This is the code
+    # This is what actually does all the work to go through the file and match up the things we are looking for in the file we were given for the asignment.
+    if (match.group(7)[0] == "3"):
         redirectCounter += 1
     elif (match.group(7)[0] == "4"):
         errorCounter += 1
@@ -105,9 +128,9 @@ def fileCount():
     elif (month == "Dec"): 
         declogs.write(line)
     
-   else:
+    else:
         continue
-#This is what is going to go and print the answers to the questions for the assignment and display it to us
+# This is what prints out the asnwers to the questions we are answering for the assignment and is displayed in the output panel of VS code.
 print("Request Made")
 print(file_len(LOCAL_FILE))
 totalResponses = file_len(LOCAL_FILE)
@@ -120,5 +143,4 @@ print("Percentage of all requests that were redirects (3xx): {0:.2%}".format(red
 print("Total number of Errors:",errorCounter)
 print("Percentage of client error (4xx) requests: {0:.2%}".format(errorCounter/totalResponses))	
 fileCount()
-
-#end of assignment
+# End of assignment
