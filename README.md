@@ -37,6 +37,11 @@ octlogs=open("octlogs.txt", "a+"); novlogs=open("november.txt", "a+"); declogs=o
 
 i=0
 
+def file_len(LOCAL_FILE):
+    with open (LOCAL_FILE) as f:
+        for i, l in enumerate (f):
+            pass
+    return i + 1
 
 def fileCount():
 	filelog = []
@@ -57,11 +62,29 @@ def fileCount():
     print(file)
   
   #Multiple files with only one request so we need to list them all
-		#response = input(" There were {} file(s) that were requested only once, show all? (y/n)".format(len(leastcommon)))
+		#response = input(" There were {} file(s) that were requested only once, show all? 
+		#(y/n)".format(len(leastcommon)))
 		#if response == 'y' or response == 'Y':
 			#for file in leastcommon:
 				#print(file)
-# If the file isn't already there
+
+# If the file isn't already there.
 #if not os.path.isfile(LOCAL_FILE):
     # Download the file and save it to LOCAL_FILE
     #urlretrieve(URL, LOCAL_FILE)
+
+# This is our Regex that we used.
+pattern = r'(.*?) - (.*) \[(.*?)\] \"(.*?) (.*?)\"? (.+?) (.+) (.+)'
+
+# this is a list with each line.
+lines = open(LOCAL_FILE, 'r').readlines()
+
+# This is what is going to match things together to answer our questions for the assignment.
+for line in lines:
+    # Match our pattern to the line
+    match = re.match(pattern, line)
+
+    # This is for if there is no match
+    if not match:
+        continue
+	
