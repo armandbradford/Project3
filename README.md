@@ -75,6 +75,7 @@ def fileCount():
     months_count[month] += 1
     match.group(7) 
     
+ #This is what actually does all the work and find the matches in the file such as requests each month or most requested form.
    if (match.group(7)[0] == "3"):
         redirectCounter += 1
     elif (match.group(7)[0] == "4"):
