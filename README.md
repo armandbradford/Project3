@@ -66,3 +66,43 @@ def fileCount():
 #if not os.path.isfile(LOCAL_FILE):
     # Download the file and save it to LOCAL_FILE
     #urlretrieve(URL, LOCAL_FILE)
+    
+   #Matching patterns to lines
+   match.group(0)
+    match.group(3) 
+    timestamp = match.group(3)
+    month = timestamp[3:6]
+    months_count[month] += 1
+    match.group(7) 
+    
+   if (match.group(7)[0] == "3"):
+        redirectCounter += 1
+    elif (match.group(7)[0] == "4"):
+        errorCounter += 1
+    if (month == "Jan"): 
+        janlogs.write(line)
+    elif (month == "Feb"): 
+        feblogs.write(line)
+    elif (month == "Mar"): 
+        marlogs.write(line)
+    elif (month == "Apr"): 
+        aprlogs.write(line)
+    elif (month == "May"): 
+        maylogs.write(line)
+    elif (month == "Jun"): 
+        junlogs.write(line)
+    elif (month == "Jul"): 
+        jullogs.write(line)
+    elif (month == "Aug"): 
+        auglogs.write(line)
+    elif (month == "Sep"): 
+        seplogs.write(line)
+    elif (month == "Oct"): 
+        octlogs.write(line)
+    elif (month == "Nov"): 
+        novlogs.write(line)
+    elif (month == "Dec"): 
+        declogs.write(line)
+    
+   else:
+        continue
