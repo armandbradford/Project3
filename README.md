@@ -12,7 +12,7 @@ redirectCounter = 0
 errorCounter = 0
 URL = 'https://s3.amazonaws.com/tcmg476/http_access_log'
 #This is where our file will be saved and what it will be called so we can find it later if needed.
-LOCAL_FILE = 'http_access_log'
+LOCAL_FILE = 'local_copy.log'
 
 #These are the months that we will be using to parse the data
 months_count ={
@@ -37,11 +37,6 @@ octlogs=open("octlogs.txt", "a+"); novlogs=open("november.txt", "a+"); declogs=o
 
 i=0
 
-def file_len(LOCAL_FILE):
-    with open (LOCAL_FILE) as f:
-        for i, l in enumerate (f):
-            pass
-    return i + 1
 
 def fileCount():
 	filelog = []
@@ -67,24 +62,7 @@ def fileCount():
 		#if response == 'y' or response == 'Y':
 			#for file in leastcommon:
 				#print(file)
-
-# If the file isn't already there.
+# If the file isn't already there
 #if not os.path.isfile(LOCAL_FILE):
     # Download the file and save it to LOCAL_FILE
     #urlretrieve(URL, LOCAL_FILE)
-
-# This is our Regex that we used.
-pattern = r'(.*?) - (.*) \[(.*?)\] \"(.*?) (.*?)\"? (.+?) (.+) (.+)'
-
-# this is a list with each line.
-lines = open(LOCAL_FILE, 'r').readlines()
-
-# This is what is going to match things together to answer our questions for the assignment.
-for line in lines:
-    # Match our pattern to the line
-    match = re.match(pattern, line)
-
-    # This is for if there is no match
-    if not match:
-        continue
-	
