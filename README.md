@@ -38,6 +38,30 @@ octlogs=open("octlogs.txt", "a+"); novlogs=open("november.txt", "a+"); declogs=o
 i=0
 
 
-
-
-
+def fileCount():
+	filelog = []
+	leastcommon = []
+	with open(LOCAL_FILE) as logs:
+		for line in logs:
+			try:
+				filelog.append(line[line.index("GET")+4:line.index("HTTP")])	
+			except:
+				pass
+	counter = collections.Counter(filelog)
+	for count in counter.most_common(1):														
+		print("The most requested file was: {} with {} requests.".format(str(count[0]), str(count[1])))
+	for count in counter.most_common():					#Files w/ only one request
+		if str(count[1]) == '1':
+			leastcommon.append(count[0]), 
+	if leastcommon:
+    print(file)
+  
+  #Multiple files with only one request so we need to list them all
+		#response = input(" There were {} file(s) that were requested only once, show all? (y/n)".format(len(leastcommon)))
+		#if response == 'y' or response == 'Y':
+			#for file in leastcommon:
+				#print(file)
+# If the file isn't already there
+#if not os.path.isfile(LOCAL_FILE):
+    # Download the file and save it to LOCAL_FILE
+    #urlretrieve(URL, LOCAL_FILE)
